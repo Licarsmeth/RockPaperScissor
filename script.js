@@ -14,8 +14,9 @@ let getComputerChoice = () => {
   }
 };
 
-// console.log(playerChoice);
-// console.log(getComputerChoice());
+//initialize count variables for player and computer
+let countPlayer = 0;
+let countComputer = 0;
 
 let playRound = (playerChoice, computerChoice) => {
   //losing condition
@@ -24,6 +25,8 @@ let playRound = (playerChoice, computerChoice) => {
     (playerChoice == "Paper" && computerChoice == "Scissor") ||
     (playerChoice == "Scissor" && computerChoice == "Rock")
   ) {
+    console.log(`Computer score is: ${++countComputer}
+    Player score is; ${countPlayer}`);
     return `You lose! ${computerChoice} beats ${playerChoice}`;
   }
   // draw condition
@@ -32,6 +35,7 @@ let playRound = (playerChoice, computerChoice) => {
   }
   // winning condition
   else {
+    console.log(`Player score is: ${++countPlayer}`);
     return `You win! ${playerChoice} beats ${computerChoice}`;
   }
 };
@@ -39,13 +43,29 @@ let playRound = (playerChoice, computerChoice) => {
 const playerChoice = "rocK";
 const computerChoice = getComputerChoice();
 
-console.log(playerChoice);
-console.log(`computer ${computerChoice}`);
+// console.log(playerChoice);
+// console.log(`computer ${computerChoice}`);
 // pass playerchoice as first letter capitalized
-console.log(
-  playRound(
-    playerChoice.slice(0, 1).toUpperCase() +
-      playerChoice.slice(1).toLowerCase(),
-    computerChoice
-  )
-);
+
+let game = () => {
+  do {
+    console.log(
+      playRound(
+        playerChoice.slice(0, 1).toUpperCase() +
+          playerChoice.slice(1).toLowerCase(),
+        computerChoice
+      )
+    );
+  } while (!(countComputer == 5 || countPlayer == 5));
+  if (countComputer > countPlayer) {
+    console.log(
+      `You suck dude, boo! Computer won you by ${countComputer - countPlayer}`
+    );
+  }
+  // else if (countComputer == countPlayer){
+  //     console.log(`You're safe from embarrassment...for this time.`);
+  // }
+  else console.log(`Lesgoo you won! (finally) You won the computer by ${countPlayer- countComputer}`);
+};
+
+console.log(game());
