@@ -14,41 +14,36 @@ let getComputerChoice = () => {
   }
 };
 
-
 let playRound = (playerChoice, computerChoice) => {
-  //losing condition
+  //winning condition
   if (
-    (playerChoice == "Rock" && computerChoice == "Paper") ||
-    (playerChoice == "Paper" && computerChoice == "Scissor") ||
-    (playerChoice == "Scissor" && computerChoice == "Rock")
-    ) {
-      console.log(computerChoice);
-      console.log(`${countPlayer} - ${++countComputer}`);
-    return `You lose! ${computerChoice} beats ${playerChoice} ------------------------`;
-  }
+    (playerChoice == "Paper" && computerChoice == "Rock") ||
+    (playerChoice == "Scissor" && computerChoice == "Paper") ||
+    (playerChoice == "Rock" && computerChoice == "Scissor")
+  ) {
+    console.log(computerChoice);
+    console.log(`${++countPlayer} - ${countComputer}`);
+    return `You win! ${playerChoice} beats ${computerChoice}------------------------`;
+  }                                        
   // draw condition
   else if (playerChoice == computerChoice) {
     console.log(computerChoice);
     console.log(`${countPlayer} - ${countComputer}`);
     return `Draw!----------------------------------------------`;
   }
-  // winning condition
+  // losing condition
   else {
     console.log(computerChoice);
-    console.log(`${++countPlayer} - ${countComputer}`);
-    return `You win! ${playerChoice} beats ${computerChoice}------------------------`;
+    console.log(`${countPlayer} - ${++countComputer}`);
+    return `You lose! ${computerChoice} beats ${playerChoice} ------------------------`;
   }
 };
-
-// const playerChoice = "rocK";
-
 
 //initialize count variables for player and computer
 let countPlayer = 0;
 let countComputer = 0;
 
 let game = () => {
-  
   let round = 1;
   do {
     const playerChoice = prompt("Choose your weapon");
@@ -67,11 +62,12 @@ let game = () => {
     console.log(
       `You suck dude, boo! Computer won you by ${countComputer - countPlayer}`
     );
-  }
-  // else if (countComputer == countPlayer){
-  //     console.log(`You're safe from embarrassment...for this time.`);
-  // }
-  else console.log(`Lesgoo you won! (finally) You won the computer by ${countPlayer- countComputer}`);
+  } else
+    console.log(
+      `Lesgoo you won! (finally) You won the computer by ${
+        countPlayer - countComputer
+      }`
+    );
 };
 
 console.log(game());
