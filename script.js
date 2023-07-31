@@ -14,9 +14,6 @@ let getComputerChoice = () => {
   }
 };
 
-//initialize count variables for player and computer
-let countPlayer = 0;
-let countComputer = 0;
 
 let playRound = (playerChoice, computerChoice) => {
   //losing condition
@@ -24,39 +21,48 @@ let playRound = (playerChoice, computerChoice) => {
     (playerChoice == "Rock" && computerChoice == "Paper") ||
     (playerChoice == "Paper" && computerChoice == "Scissor") ||
     (playerChoice == "Scissor" && computerChoice == "Rock")
-  ) {
-    console.log(`Computer score is: ${++countComputer}
-    Player score is; ${countPlayer}`);
-    return `You lose! ${computerChoice} beats ${playerChoice}`;
+    ) {
+      console.log(computerChoice);
+      console.log(`${countPlayer} - ${++countComputer}`);
+    return `You lose! ${computerChoice} beats ${playerChoice} ------------------------`;
   }
   // draw condition
   else if (playerChoice == computerChoice) {
-    return `Draw!`;
+    console.log(computerChoice);
+    console.log(`${countPlayer} - ${countComputer}`);
+    return `Draw!----------------------------------------------`;
   }
   // winning condition
   else {
-    console.log(`Player score is: ${++countPlayer}`);
-    return `You win! ${playerChoice} beats ${computerChoice}`;
+    console.log(computerChoice);
+    console.log(`${++countPlayer} - ${countComputer}`);
+    return `You win! ${playerChoice} beats ${computerChoice}------------------------`;
   }
 };
 
-const playerChoice = "rocK";
-const computerChoice = getComputerChoice();
+// const playerChoice = "rocK";
 
-// console.log(playerChoice);
-// console.log(`computer ${computerChoice}`);
-// pass playerchoice as first letter capitalized
+
+//initialize count variables for player and computer
+let countPlayer = 0;
+let countComputer = 0;
 
 let game = () => {
+  
+  let round = 1;
   do {
+    const playerChoice = prompt("Choose your weapon");
+    const computerChoice = getComputerChoice();
+    console.log(`Round ${round++}`);
     console.log(
+      // pass playerchoice as first letter capitalized
       playRound(
         playerChoice.slice(0, 1).toUpperCase() +
           playerChoice.slice(1).toLowerCase(),
         computerChoice
       )
     );
-  } while (!(countComputer == 5 || countPlayer == 5));
+  } while (!(countComputer == 3 || countPlayer == 3));
   if (countComputer > countPlayer) {
     console.log(
       `You suck dude, boo! Computer won you by ${countComputer - countPlayer}`
