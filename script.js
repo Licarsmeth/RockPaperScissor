@@ -46,7 +46,7 @@ let countComputer = 0;
 let game = () => {
   let round = 1;
   do {
-    const playerChoice = prompt("Choose your weapon");
+    // const playerChoice = prompt("Choose your weapon");
     const computerChoice = getComputerChoice();
     console.log(`Round ${round++}`);
     console.log(
