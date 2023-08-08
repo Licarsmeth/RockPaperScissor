@@ -1,3 +1,16 @@
+const rock = document.querySelector(".rock");
+const paper = document.querySelector(".paper");
+const scissor = document.querySelector(".scissor");
+const choices = document.querySelectorAll(".rps");
+const playerImage = document.querySelector(".leftPlayer img");
+const computerImage = document.querySelector(".rightPlayer img");
+const scores = document.querySelector(".scores");
+const message = document.querySelector(".message");
+let countPlayer = 0;
+let countComputer = 0;
+
+message.textContent = "Let the game begin!";
+
 let getComputerChoice = () => {
   // generating random number from 0 to 2
   let computerChoice = Math.floor(Math.random() * 3);
@@ -14,6 +27,16 @@ let getComputerChoice = () => {
   }
 };
 
+choices.forEach((choice) => {
+  choice.addEventListener("click", () => {
+    playerChoice = choice.alt;
+    console.log(playerChoice);
+    playRound(playerChoice, getComputerChoice());
+    scores.textContent = `Player: ${countPlayer}     ${countComputer}: Computer`;
+    if (countComputer == 5 || countPlayer == 5) reset();
+  });
+});
+
 let playRound = (playerChoice, computerChoice) => {
   //winning condition
   if (
@@ -21,53 +44,30 @@ let playRound = (playerChoice, computerChoice) => {
     (playerChoice == "Scissor" && computerChoice == "Paper") ||
     (playerChoice == "Rock" && computerChoice == "Scissor")
   ) {
-    console.log(computerChoice);
     console.log(`${++countPlayer} - ${countComputer}`);
-    return `You win! ${playerChoice} beats ${computerChoice}------------------------`;
-  }                                        
+
+    message.textContent = `Congrats! ${playerChoice} beats ${computerChoice}`;
+  }
   // draw condition
   else if (playerChoice == computerChoice) {
-    console.log(computerChoice);
     console.log(`${countPlayer} - ${countComputer}`);
-    return `Draw!----------------------------------------------`;
+
+    message.textContent = `You both choose ${playerChoice}`;
   }
   // losing condition
   else {
-    console.log(computerChoice);
     console.log(`${countPlayer} - ${++countComputer}`);
-    return `You lose! ${computerChoice} beats ${playerChoice} ------------------------`;
+
+    message.textContent = `Oh no! ${computerChoice} beats ${playerChoice}`;
   }
 };
 
-//initialize count variables for player and computer
-let countPlayer = 0;
-let countComputer = 0;
-
-let game = () => {
-  let round = 1;
-  do {
-    // const playerChoice = prompt("Choose your weapon");
-    const computerChoice = getComputerChoice();
-    console.log(`Round ${round++}`);
-    console.log(
-      // pass playerchoice as first letter capitalized
-      playRound(
-        playerChoice.slice(0, 1).toUpperCase() +
-          playerChoice.slice(1).toLowerCase(),
-        computerChoice
-      )
-    );
-  } while (!(countComputer == 3 || countPlayer == 3));
-  if (countComputer > countPlayer) {
-    console.log(
-      `You suck dude, boo! Computer won you by ${countComputer - countPlayer}`
-    );
-  } else
-    console.log(
-      `Lesgoo you won! (finally) You won the computer by ${
-        countPlayer - countComputer
-      }`
-    );
+const reset = () => {
+  if (countComputer > countPlayer)
+    message.textContent = "Ew you lose, refresh site to try again";
+  else message.textContent = "You finally won, refrest site to continue";
+  countComputer = 0;
+  countPlayer = 0;
 };
 
-console.log(game());
+
