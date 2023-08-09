@@ -8,8 +8,10 @@ const scores = document.querySelector(".scores");
 const message = document.querySelector(".message");
 let countPlayer = 0;
 let countComputer = 0;
-
 message.textContent = "Let the game begin!";
+
+const losingMessage = "Ew you lose 🤮- Refresh to continue";
+const winningMessage = "You finally won 🥳- Refresh to continue";
 
 let getComputerChoice = () => {
   // generating random number from 0 to 2
@@ -29,32 +31,36 @@ let getComputerChoice = () => {
 
 choices.forEach((choice) => {
   choice.addEventListener("click", () => {
-    playerChoice = choice.alt;
-    console.log(playerChoice);
-    playRound(playerChoice, getComputerChoice());
-    scores.textContent = `Player: ${countPlayer} --- ${countComputer}: Computer`;
-    if (countComputer == 5 || countPlayer == 5) reset();
+    if (!(
+      message.textContent == losingMessage ||
+      message.textContent == winningMessage
+    )) {
+      playerChoice = choice.alt;
+      console.log(playerChoice);
+      playRound(playerChoice, getComputerChoice());
+      scores.textContent = `Player: ${countPlayer} --- ${countComputer}: Computer`;
+      if (countComputer == 5 || countPlayer == 5) reset();
+    }
   });
 });
 
 let playRound = (playerChoice, computerChoice) => {
   //winning condition
   if (
-    
     (playerChoice == "Paper" && computerChoice == "Rock") ||
     (playerChoice == "Scissor" && computerChoice == "Paper") ||
     (playerChoice == "Rock" && computerChoice == "Scissor")
   ) {
     //change player image
     playerImage.firstElementChild.remove();
-    const newPlayerImage= document.createElement('img');
-    newPlayerImage.setAttribute('src', `images/${playerChoice}Right.png`);
+    const newPlayerImage = document.createElement("img");
+    newPlayerImage.setAttribute("src", `images/${playerChoice}Right.png`);
     playerImage.appendChild(newPlayerImage);
 
     //change computer image
     computerImage.firstElementChild.remove();
-    const newComputerImage = document.createElement('img');
-    newComputerImage.setAttribute('src', `images/${computerChoice}.png`);
+    const newComputerImage = document.createElement("img");
+    newComputerImage.setAttribute("src", `images/${computerChoice}.png`);
     computerImage.appendChild(newComputerImage);
 
     console.log(`${++countPlayer} - ${countComputer}`);
@@ -65,16 +71,16 @@ let playRound = (playerChoice, computerChoice) => {
   else if (playerChoice == computerChoice) {
     //change player image
     playerImage.firstElementChild.remove();
-    const newPlayerImage= document.createElement('img');
-    newPlayerImage.setAttribute('src', `images/${playerChoice}Right.png`);
+    const newPlayerImage = document.createElement("img");
+    newPlayerImage.setAttribute("src", `images/${playerChoice}Right.png`);
     playerImage.appendChild(newPlayerImage);
 
     //change computer image
     computerImage.firstElementChild.remove();
-    const newComputerImage = document.createElement('img');
-    newComputerImage.setAttribute('src', `images/${computerChoice}.png`);
+    const newComputerImage = document.createElement("img");
+    newComputerImage.setAttribute("src", `images/${computerChoice}.png`);
     computerImage.appendChild(newComputerImage);
-    
+
     console.log(`${countPlayer} - ${countComputer}`);
 
     message.textContent = `You both choose ${playerChoice}`;
@@ -83,14 +89,14 @@ let playRound = (playerChoice, computerChoice) => {
   else {
     //change player image
     playerImage.firstElementChild.remove();
-    const newPlayerImage= document.createElement('img');
-    newPlayerImage.setAttribute('src', `images/${playerChoice}Right.png`);
+    const newPlayerImage = document.createElement("img");
+    newPlayerImage.setAttribute("src", `images/${playerChoice}Right.png`);
     playerImage.appendChild(newPlayerImage);
 
     //change computer image
     computerImage.firstElementChild.remove();
-    const newComputerImage = document.createElement('img');
-    newComputerImage.setAttribute('src', `images/${computerChoice}.png`);
+    const newComputerImage = document.createElement("img");
+    newComputerImage.setAttribute("src", `images/${computerChoice}.png`);
     computerImage.appendChild(newComputerImage);
 
     console.log(`${countPlayer} - ${++countComputer}`);
@@ -100,12 +106,9 @@ let playRound = (playerChoice, computerChoice) => {
 };
 
 const reset = () => {
-  if (countComputer > countPlayer)
-    message.textContent = "Ew you lose, keep trying";
-  else message.textContent = "You finally won, once more?";
+  if (countComputer > countPlayer) message.textContent = losingMessage;
+  else message.textContent = winningMessage;
   countComputer = 0;
   countPlayer = 0;
-  choices.removeEventListener('click');
+  choices.removeEventListener("click");
 };
-
-
