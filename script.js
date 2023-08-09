@@ -2,8 +2,8 @@ const rock = document.querySelector(".rock");
 const paper = document.querySelector(".paper");
 const scissor = document.querySelector(".scissor");
 const choices = document.querySelectorAll(".rps");
-const playerImage = document.querySelector(".leftPlayer img");
-const computerImage = document.querySelector(".rightPlayer img");
+const playerImage = document.querySelector(".leftPlayer");
+const computerImage = document.querySelector(".rightPlayer");
 const scores = document.querySelector(".scores");
 const message = document.querySelector(".message");
 let countPlayer = 0;
@@ -32,7 +32,7 @@ choices.forEach((choice) => {
     playerChoice = choice.alt;
     console.log(playerChoice);
     playRound(playerChoice, getComputerChoice());
-    scores.textContent = `Player: ${countPlayer}     ${countComputer}: Computer`;
+    scores.textContent = `Player: ${countPlayer} --- ${countComputer}: Computer`;
     if (countComputer == 5 || countPlayer == 5) reset();
   });
 });
@@ -40,22 +40,59 @@ choices.forEach((choice) => {
 let playRound = (playerChoice, computerChoice) => {
   //winning condition
   if (
+    
     (playerChoice == "Paper" && computerChoice == "Rock") ||
     (playerChoice == "Scissor" && computerChoice == "Paper") ||
     (playerChoice == "Rock" && computerChoice == "Scissor")
   ) {
+    //change player image
+    playerImage.firstElementChild.remove();
+    const newPlayerImage= document.createElement('img');
+    newPlayerImage.setAttribute('src', `images/${playerChoice}Right.png`);
+    playerImage.appendChild(newPlayerImage);
+
+    //change computer image
+    computerImage.firstElementChild.remove();
+    const newComputerImage = document.createElement('img');
+    newComputerImage.setAttribute('src', `images/${computerChoice}.png`);
+    computerImage.appendChild(newComputerImage);
+
     console.log(`${++countPlayer} - ${countComputer}`);
 
     message.textContent = `Congrats! ${playerChoice} beats ${computerChoice}`;
   }
   // draw condition
   else if (playerChoice == computerChoice) {
+    //change player image
+    playerImage.firstElementChild.remove();
+    const newPlayerImage= document.createElement('img');
+    newPlayerImage.setAttribute('src', `images/${playerChoice}Right.png`);
+    playerImage.appendChild(newPlayerImage);
+
+    //change computer image
+    computerImage.firstElementChild.remove();
+    const newComputerImage = document.createElement('img');
+    newComputerImage.setAttribute('src', `images/${computerChoice}.png`);
+    computerImage.appendChild(newComputerImage);
+    
     console.log(`${countPlayer} - ${countComputer}`);
 
     message.textContent = `You both choose ${playerChoice}`;
   }
   // losing condition
   else {
+    //change player image
+    playerImage.firstElementChild.remove();
+    const newPlayerImage= document.createElement('img');
+    newPlayerImage.setAttribute('src', `images/${playerChoice}Right.png`);
+    playerImage.appendChild(newPlayerImage);
+
+    //change computer image
+    computerImage.firstElementChild.remove();
+    const newComputerImage = document.createElement('img');
+    newComputerImage.setAttribute('src', `images/${computerChoice}.png`);
+    computerImage.appendChild(newComputerImage);
+
     console.log(`${countPlayer} - ${++countComputer}`);
 
     message.textContent = `Oh no! ${computerChoice} beats ${playerChoice}`;
@@ -64,10 +101,11 @@ let playRound = (playerChoice, computerChoice) => {
 
 const reset = () => {
   if (countComputer > countPlayer)
-    message.textContent = "Ew you lose, refresh site to try again";
-  else message.textContent = "You finally won, refrest site to continue";
+    message.textContent = "Ew you lose, keep trying";
+  else message.textContent = "You finally won, once more?";
   countComputer = 0;
   countPlayer = 0;
+  choices.removeEventListener('click');
 };
 
 
