@@ -4,31 +4,22 @@
 
 header {
     font-family: 'Sriracha', cursive;
-    font-size: 8rem;
+    font-size: 8em;
     text-align: center;
 }
 
 .centerGround{
     display: flex;
     justify-content: center;
-    height: 50%;
-    padding-bottom: 50px;
 }
 
 .playground{
     display: flex;
     flex-direction: column;
-    gap: 2em;
-    justify-content: space-between;
+    gap: 3em;
     width: 50%;
     
 }
-
-img {
-    height: 10px;
-    width: 50px;
-}
-
 
 .scorecard, .message {
     font-family: 'Sriracha', cursive;
@@ -39,7 +30,6 @@ img {
 .players {
     display: flex;
     justify-content: space-around;
-    align-items: center;
 }
 
 .choice {
@@ -48,7 +38,6 @@ img {
     gap: 1em;
     
 }
-
 
 .leftPlayer img, .rightPlayer img{
     height: 150px;
@@ -64,8 +53,8 @@ img {
     transform: scale(1.2);
 }
 
-
-
-
-
-
+@media (max-width: 650px){
+    header {
+        font-size: 4rem;
+    }
+}

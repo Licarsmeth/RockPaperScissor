@@ -1,6 +1,3 @@
-const rock = document.querySelector(".rock");
-const paper = document.querySelector(".paper");
-const scissor = document.querySelector(".scissor");
 const choices = document.querySelectorAll(".rps");
 const playerImage = document.querySelector(".leftPlayer");
 const computerImage = document.querySelector(".rightPlayer");
@@ -25,7 +22,6 @@ choices.forEach((choice) => {
       message.textContent == winningMessage
     )) {
       playerChoice = choice.alt;
-      console.log(playerChoice);
       playRound(playerChoice, getComputerChoice());
       scores.textContent = `Player: ${countPlayer} --- ${countComputer}: Computer`;
       if (countComputer == 5 || countPlayer == 5) reset();
@@ -76,5 +72,4 @@ const reset = () => {
   else message.textContent = winningMessage;
   countComputer = 0;
   countPlayer = 0;
-  choices.removeEventListener("click");
 };
